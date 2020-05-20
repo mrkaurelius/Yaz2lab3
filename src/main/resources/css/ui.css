@@ -1,0 +1,39 @@
+node {
+	size: 50px;
+	fill-color: grey;
+	text-size: 20px;
+}
+
+node.important {
+	size: 50px;
+	fill-color: #C91F37;
+	text-size: 20px;
+}
+
+node.source {
+	size: 50px;
+	fill-color: #407A52;
+	text-size: 20px;
+}
+
+node.target {
+	size: 50px;
+	fill-color: #763568;
+	text-size: 20px;
+}
+
+edge {
+	size: 2px;
+	text-size: 15px;
+	text-style: bold;
+	fill-color: #5D8CAE;
+	text-color: #1F4788;
+}
+
+edge.important {
+	size: 2px;
+	text-size: 15px;
+	text-style: bold;
+	fill-color: #C91F37;
+	text-color: #8F1D21;
+}
