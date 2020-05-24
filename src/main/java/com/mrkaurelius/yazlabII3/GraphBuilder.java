@@ -1,6 +1,7 @@
 package com.mrkaurelius.yazlabII3;
 
 import java.util.List;
+import java.util.concurrent.CountDownLatch;
 
 import org.graphstream.graph.*;
 import org.graphstream.graph.implementations.*;
@@ -49,21 +50,32 @@ public class GraphBuilder {
                     newNode.addAttribute("type", "target");
                     newNode.addAttribute("ui.class", "target");
                     newNode.addAttribute("ui.label", n.getId());
+                    continue;
                 }
-                if (n.getAttribute().equals("S")){
+                if (n.getAttribute().equals("S")) {
                     newNode.addAttribute("type", "source");
                     newNode.addAttribute("ui.class", "source");
                     newNode.addAttribute("ui.label", n.getId());
+                    continue;
                 }
             }
             newNode.addAttribute("ui.label", n.getId());
+            newNode.addAttribute("type", "normal");
         }
 
+        // edge logic incomplete finis after doin graph things
         for (BasicEdge e : edges) {
-            Edge newEdge = graph.addEdge(e.getId(), e.getSourceID(), e.getDestinationID(), true);
-            newEdge.addAttribute("ui.label", e.getAttribute() + "/0");
-            newEdge.addAttribute("capacity", Integer.parseInt(e.getAttribute()));
-            newEdge.addAttribute("current", 0);
+            Edge edge = graph.addEdge(e.getId(), e.getSourceID(), e.getDestinationID(), true);
+            edge.addAttribute("ui.label", e.getAttribute() + "/0");
+            edge.addAttribute("capacity", Integer.parseInt(e.getAttribute()));
+            edge.addAttribute("flow", 0);
+            edge.addAttribute("type", "normal");
+            // Edge resudialEdge = graph.addEdge(e.getId()+"R", e.getDestinationID(), e.getSourceID(), true);
+            // resudialEdge.addAttribute("ui.label", e.getAttribute() + "/0");
+            // resudialEdge.addAttribute("capacity", Integer.parseInt(e.getAttribute()));
+            // resudialEdge.addAttribute("flow", 0);
+            // resudialEdge.addAttribute("type", "residual");
+            // resudialEdge.addAttribute("ui.class", "residual");
         }
 
         return 0;

@@ -10,6 +10,12 @@ node.important {
 	text-size: 20px;
 }
 
+node.visited {
+	size: 50px;
+	fill-color: #F7CA18;
+	text-size: 20px;
+}
+
 node.source {
 	size: 50px;
 	fill-color: #407A52;
@@ -23,17 +29,22 @@ node.target {
 }
 
 edge {
-	size: 2px;
-	text-size: 15px;
-	text-style: bold;
-	fill-color: #5D8CAE;
-	text-color: #1F4788;
+	size: 3px;
+	text-size: 11px;
+	fill-color: #89C4F4;
+	text-color: black;
+}
+
+edge.residual {
+	size: 1px;
+	text-size: 11px;
+	fill-color: #89C4F4;
+	text-color: black;
 }
 
 edge.important {
 	size: 2px;
 	text-size: 15px;
-	text-style: bold;
 	fill-color: #C91F37;
 	text-color: #8F1D21;
 }

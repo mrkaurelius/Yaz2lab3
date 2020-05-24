@@ -56,7 +56,6 @@ public class TGFReader {
             }
             reader.close();
         } catch (IOException e) {
-            ;
             // TODO: handle exception
             e.printStackTrace();
             return 0;

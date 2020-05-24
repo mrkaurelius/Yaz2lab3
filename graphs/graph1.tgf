@@ -1,0 +1,16 @@
+S S 
+A
+B
+C
+D
+T T
+#
+S A 10
+S C 10
+A C 10
+A D 10
+A B 10
+C D 10
+D B 10
+D T 10
+B T 10
