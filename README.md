@@ -26,6 +26,11 @@ understand java collections, lists
 TGF file format
 
 ## Sunum 
+
+### Maybe Reusable Classes
+- Visual Helper
+- TGFReader
+
 ### İsterler
 1 tane giriş olacak 1 tane çıkış olacak
 max flow mix cut hesaplanacak

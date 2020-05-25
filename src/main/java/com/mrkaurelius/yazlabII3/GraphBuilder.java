@@ -23,6 +23,7 @@ public class GraphBuilder {
 
     private Graph graph;
     private TGFReader graphReader;
+    private Node startingNode;
     // private String TGFFilename;
 
     public GraphBuilder(String graphName, String filename) {
@@ -56,6 +57,7 @@ public class GraphBuilder {
                     newNode.addAttribute("type", "source");
                     newNode.addAttribute("ui.class", "source");
                     newNode.addAttribute("ui.label", n.getId());
+                    setStartingNode(newNode);
                     continue;
                 }
             }
@@ -70,16 +72,17 @@ public class GraphBuilder {
             edge.addAttribute("capacity", Integer.parseInt(e.getAttribute()));
             edge.addAttribute("flow", 0);
             edge.addAttribute("type", "normal");
-            // Edge resudialEdge = graph.addEdge(e.getId()+"R", e.getDestinationID(), e.getSourceID(), true);
-            // resudialEdge.addAttribute("ui.label", e.getAttribute() + "/0");
-            // resudialEdge.addAttribute("capacity", Integer.parseInt(e.getAttribute()));
-            // resudialEdge.addAttribute("flow", 0);
-            // resudialEdge.addAttribute("type", "residual");
-            // resudialEdge.addAttribute("ui.class", "residual");
+            Edge resudialEdge = graph.addEdge(e.getId()+"R", e.getDestinationID(), e.getSourceID(), true);
+            resudialEdge.addAttribute("ui.label", "0/0");
+            resudialEdge.addAttribute("capacity", 0);
+            resudialEdge.addAttribute("flow", 0);
+            resudialEdge.addAttribute("type", "residual");
+            resudialEdge.addAttribute("ui.class", "residual");
         }
 
         return 0;
     }
+
 
     public Graph getGraph() {
         return graph;
@@ -95,6 +98,14 @@ public class GraphBuilder {
 
     public void setGraphReader(TGFReader graphReader) {
         this.graphReader = graphReader;
+    }
+
+    public Node getStartingNode() {
+        return startingNode;
+    }
+
+    public void setStartingNode(Node startingNode) {
+        this.startingNode = startingNode;
     }
 
 }
