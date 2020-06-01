@@ -9,7 +9,7 @@ Edmonds-Karp algorithm
 - That the distance from the saturated edge to the source along the augmenting path must be longer than last time it was saturated, and that the length is at most |V|.
 [source](https://en.wikipedia.org/wiki/Edmonds%E2%80%93Karp_algorithm)
 
-## TODOs, Problems, Research
+## TODOs, Problems, Research, Notes
 ### Class Design
 graph builder inits graph and add visual attributes
 
@@ -25,11 +25,11 @@ understand java collections, lists
 ### Graph File Format
 TGF file format
 
-## Sunum 
-
 ### Maybe Reusable Classes
 - Visual Helper
 - TGFReader
+
+## Sunum 
 
 ### İsterler
 1 tane giriş olacak 1 tane çıkış olacak

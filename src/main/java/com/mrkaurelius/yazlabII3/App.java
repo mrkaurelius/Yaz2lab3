@@ -1,7 +1,6 @@
 package com.mrkaurelius.yazlabII3;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -10,10 +9,6 @@ import java.util.Stack;
 
 import org.apache.commons.math3.util.Pair;
 import org.graphstream.graph.*;
-import org.graphstream.graph.implementations.*;
-import org.graphstream.stream.sync.SourceTime;
-
-import scala.collection.parallel.ParIterableLike.Foreach;
 
 import static com.mrkaurelius.yazlabII3.VisualHelper.*;
 
@@ -21,11 +16,21 @@ public class App {
     public static void main(String args[]) {
         System.setProperty("org.graphstream.ui.renderer", "org.graphstream.ui.j2dviewer.J2DGraphRenderer");
 
-        GraphBuilder gb = new GraphBuilder("maxflowmincut", "graphs/graph3.tgf");
+        GraphBuilder gb = new GraphBuilder("maxflowmincut", "graphs/graph4.tgf");
         Graph graph = gb.getGraph();
         Node startingNode = gb.getStartingNode();
         // System.out.println("Working Directory = " + System.getProperty("user.dir"));
         // printGraphNodeAttributes(graph);
+        graph.display();
+
+        System.out.print("Press enter");
+        try {
+            System.in.read();
+        } catch (Exception e) {
+            //TODO: handle exception
+        }
+
+
 
         // TODO:
         // implement cli interface
@@ -33,25 +38,24 @@ public class App {
         // load graph, solve and show maxflow min cut
         // logify
 
-        // TODO:
-        // for testing graph generators maybe useful
-        // in vertices, input equal to autput
-        // find different paths to sink
-        // add residual edges to graph after augmenting path founded
-        // implement bfs returns augmented path
-        // implement edmun karps method
-        // retrive edges from nodes or track edges
-
         // get start node automaticly
         // add getStartNode method to GraphBuilder
-        edmondsKarp(startingNode);
-        graph.display();
+        List<Pair<Integer, Edge>> bottleneckPairs = edmondsKarp(startingNode);
+
+        int maxFlow  = 0;
+        for (Pair<Integer,Edge> pair : bottleneckPairs) {
+            maxFlow += pair.getFirst();
+            Edge edge = pair.getSecond();
+            markEdgeUI(edge, "important");
+        }
+
+        System.out.println("Max flow: " + maxFlow);
     }
 
     // change this method to return List<Pair<Integer, Edge>>
     // track last path distance 
     // check at least one edge saturated (is this redundant ?) 
-    private static int edmondsKarp(Node start) {
+    private static List<Pair<Integer, Edge>> edmondsKarp(Node start) {
         int flow = 0;
         int lastPathDistance = 0;
         List<Pair<Integer, Edge>> bottleneckPairs = new ArrayList<>();
@@ -67,6 +71,7 @@ public class App {
             printInfo(pathEdges.toString());
             // find bottleneck
             Pair<Integer, Edge> bottleneck = findBottleNeck(pathEdges);
+            bottleneckPairs.add(bottleneck);
             System.out.println("boottleneck: " + bottleneck.toString());
 
             // alter edges
@@ -90,7 +95,7 @@ public class App {
         }
         // no augmenting path avaliable
         System.out.println("yollarin sonu");
-        return flow;
+        return bottleneckPairs;
     }
 
     // check at least one edge is fully saturated (non residual edge)
@@ -129,11 +134,11 @@ public class App {
     private static void updateEdgeLabel(Edge edge, int newFlow) {
         // System.out.println("update label");
         // System.out.println(String.valueOf(newFlow));
-        edge.setAttribute("ui.label", edge.getAttribute("capacity") + "/" + String.valueOf(newFlow));
+        edge.setAttribute("ui.label",String.valueOf(newFlow) + "/" + edge.getAttribute("capacity") );
         // or check newFlow
         // if (edge.getAttribute("type").equals("resudial")) {
         if (newFlow < 0) {
-            edge.setAttribute("ui.label", "0/" + String.valueOf(newFlow));
+            edge.setAttribute("ui.label",  String.valueOf(newFlow) + "/0");
         }
     }
 

@@ -68,7 +68,7 @@ public class GraphBuilder {
         // edge logic incomplete finis after doin graph things
         for (BasicEdge e : edges) {
             Edge edge = graph.addEdge(e.getId(), e.getSourceID(), e.getDestinationID(), true);
-            edge.addAttribute("ui.label", e.getAttribute() + "/0");
+            edge.addAttribute("ui.label",  "0/" + e.getAttribute());
             edge.addAttribute("capacity", Integer.parseInt(e.getAttribute()));
             edge.addAttribute("flow", 0);
             edge.addAttribute("type", "normal");
